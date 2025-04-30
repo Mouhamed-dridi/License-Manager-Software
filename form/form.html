@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software License Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Left panel with images -->
+  <div class="left-panel" id="leftPanel">
+    <div class="image-container">
+      <img src="g11.avif" class="step-image active" id="image1" alt="Software Info">
+      <img src="g22.avif" class="step-image" id="image2" alt="License Duration">
+      <img src="g44.avif" class="step-image" id="image3" alt="Payment Details">
+    </div>
+   
+  </div>
+  
+  <!-- Right form panel -->
+  <div class="right-panel">
+    <div class="form-container">
+      <div class="step-indicator">Step <span id="currentStep">1</span> of 3</div>
+      
+      <!-- Step 1: Software Info -->
+      <div class="form-step active" id="step1">
+        <h2>Software Information</h2>
+        <div class="form-group">
+          <label for="softwareName">Software Name:</label>
+          <input type="text" id="softwareName" placeholder="Software Name" required>
+        </div>
+        <div class="form-group">
+          <label for="provider">Provider:</label>
+          <input type="text" id="provider" placeholder="Provider" required>
+        </div>
+        <div class="form-group">
+          <label for="usedBy">Used By Service:</label>
+          <input type="text" id="usedBy" placeholder="Used By Service" required>
+        </div>
+      </div>
+      
+      <!-- Step 2: License Duration -->
+      <div class="form-step" id="step2">
+        <h2>License Duration</h2>
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" required>
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" required>
+        </div>
+        <div class="form-group">
+          <label for="licenseType">License Type:</label>
+          <select id="licenseType" required>
+            <option value="">Select License Type</option>
+            <option value="subscription">Subscription</option>
+            <option value="perpetual">Perpetual License</option>
+            <option value="trial">Trial License</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Step 3: Payment -->
+      <div class="form-step" id="step3">
+        <h2>Payment Details</h2>
+        <div class="form-group">
+          <label for="price">Price ($):</label>
+          <input type="number" id="price" placeholder="Price" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label>Offer Type:</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="yearly" name="offerType" value="yearly" required>
+              <label for="yearly">Yearly Subscription</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="lifetime" name="offerType" value="lifetime">
+              <label for="lifetime">Lifetime License</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="admin">Responsible Admin:</label>
+          <select id="admin" required>
+            <option value="">Select Admin</option>
+            <option value="med">Mohamed</option>
+            <option value="yass">Yassine</option>
+            <option value="hass">Hassen</option>
+            <option value="zied">Zied</option>
+            <option value="hich">Hichem</option>
+            <option value="ham">Hamdi</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <div class="nav-buttons">
+        <button type="button" id="prevBtn" disabled>Previous</button>
+        <button type="button" id="nextBtn">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 3;
+    const stepTitle = document.getElementById('stepTitle');
+    const stepDescription = document.getElementById('stepDescription');
+    const currentStepDisplay = document.getElementById('currentStep');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    function updateForm() {
+      // Hide all steps and images
+      document.querySelectorAll('.form-step, .step-image').forEach(element => {
+        element.classList.remove('active');
+      });
+      
+      // Show current step and corresponding image
+      document.getElementById(`step${currentStep}`).classList.add('active');
+      document.getElementById(`image${currentStep}`).classList.add('active');
+      
+      currentStepDisplay.textContent = currentStep;
+      
+      // Update step titles and descriptions
+      const titles = ["Software Info", "License Dates", "Payment Details"];
+      const descriptions = [
+        "Enter software information",
+        "Set license duration and type",
+        "Configure payment and ownership"
+      ];
+      stepTitle.textContent = titles[currentStep - 1];
+      stepDescription.textContent = descriptions[currentStep - 1];
+      
+      // Update buttons
+      prevBtn.disabled = currentStep === 1;
+      nextBtn.textContent = currentStep === totalSteps ? 'Submit' : 'Next';
+    }
+    
+    // Next button click
+    nextBtn.addEventListener('click', () => {
+      if (validateStep(currentStep)) {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          updateForm();
+        } else {
+          submitForm();
+        }
+      }
+    });
+    
+    // Previous button click
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateForm();
+      }
+    });
+    
+    // Form validation
+    function validateStep(step) {
+      const stepEl = document.getElementById(`step${step}`);
+      const inputs = stepEl.querySelectorAll('input[required], select[required]');
+      
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          input.style.borderColor = '#ddd';
+        }
+      });
+      
+      if (step === 3) {
+        const radioSelected = document.querySelector('input[name="offerType"]:checked');
+        if (!radioSelected) {
+          alert('Please select an offer type');
+          return false;
+        }
+      }
+      
+      return isValid;
+    }
+    
+    // Form submission
+    function submitForm() {
+      if (!validateStep(currentStep)) return;
+      
+      const formData = {
+        id: Date.now(),
+        softwareName: document.getElementById('softwareName').value,
+        provider: document.getElementById('provider').value,
+        usedBy: document.getElementById('usedBy').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value,
+        licenseType: document.getElementById('licenseType').value,
+        price: document.getElementById('price').value,
+        offerType: document.querySelector('input[name="offerType"]:checked').value,
+        admin: document.getElementById('admin').value
+      };
+
+      let licenses = JSON.parse(localStorage.getItem('licenses')) || [];
+      licenses.push(formData);
+      localStorage.setItem('licenses', JSON.stringify(licenses));
+
+      alert('Software license information submitted successfully!');
+      window.location.href = 'thanks.html';
+    }
+    
+    // Initialize
+    updateForm();
+  </script>
+</body>
+</html>

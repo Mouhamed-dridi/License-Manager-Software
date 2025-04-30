@@ -1,0 +1,95 @@
+/* styles.css */
+
+/* Reset some default styles */
+body, h1, h2, table {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Styling for the form page */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: row;
+    max-width: 900px;
+    width: 100%;
+}
+
+.illustration {
+    flex: 1;
+    background-color: #4A154B;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustration img {
+    max-width: 200px;
+}
+
+.form-section {
+    flex: 2;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #4A154B;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #350d36;
+}
+
+/* Dashboard Styling */
+#licensesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#licensesTable th, #licensesTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#licensesTable th {
+    background-color: #4A154B;
+    color: #fff;
+}
+
+#licensesTable td {
+    background-color: #f9f9f9;
+}
+

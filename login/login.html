@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - License Manager</title>
+    <style>
+        :root {
+            --primary-color: #007bff; /* Sync blue */
+            --primary-hover: #0056b3;
+            --text-color: #1D1C1D;
+            --bg-light: #f4f7fb;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            display: flex;
+            height: 100vh;
+        }
+
+        .login-left {
+            width: 60%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-right {
+            width: 40%;
+            background: url('https://www.sync.com/images/login-hero-icons.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #444;
+            font-weight: normal;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f8ff;
+        }
+
+        .checkbox {
+            margin-top: 0.5rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .error {
+            color: red;
+            margin-top: 1rem;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-left">
+        <div class="login-container">
+            <h2>🔒 Account sign in</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <div class="form-group checkbox">
+                <label><input type="checkbox" id="keep-signed-in"> Keep me signed in</label>
+            </div>
+            <button onclick="login()">Sign in</button>
+            <a href="#" class="forgot-password">Forgot password?</a>
+            <div id="error-message" class="error"></div>
+        </div>
+    </div>
+    <div class="login-right"></div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (username === 'admin' && password === 'admin123') {
+                window.location.href = '/form/form.html';
+            } else {
+                errorMessage.textContent = 'Invalid username or password';
+            }
+        }
+    </script>
+</body>
+</html>
