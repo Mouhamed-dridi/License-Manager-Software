@@ -3,262 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>License Dashboard</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <title>Login - License Manager</title>
     <style>
+        :root {
+            --primary-color: #007bff; /* Sync blue */
+            --primary-hover: #0056b3;
+            --text-color: #1D1C1D;
+            --bg-light: #f4f7fb;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f9f9f9;
-            padding: 20px;
-        }
-        .table-responsive {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .table {
-            margin-bottom: 0;
-        }
-        .table thead th {
-            background-color: #f5f5f5;
-            color: #666;
-            font-weight: 500;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 12px 15px;
-        }
-        .table tbody td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
-            color: #333;
-        }
-        .table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        .action-btn {
-            min-width: 80px;
-            border-radius: 4px;
-        }
-        h1.display-6 {
-            color: #333;
-            font-weight: 600;
-        }
-        .top-buttons {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
             display: flex;
-            gap: 10px;
+            height: 100vh;
         }
-        .top-buttons a {
-            color: #198754;
-            text-decoration: none;
-            font-size: 15px;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
+
+        .login-left {
+            width: 60%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .top-buttons a:hover {
-            background-color: rgba(25, 135, 84, 0.1);
+
+        .login-right {
+            width: 40%;
+            background: url('https://www.sync.com/images/login-hero-icons.png') no-repeat center center;
+            background-size: cover;
         }
-        .date-text {
-            font-size: 14px;
-        }
-        .date-label {
-            color: #666;
-        }
-        #pdfUpload {
-            display: none;
-        }
-        .modal-body iframe {
+
+        .login-container {
             width: 100%;
-            height: 500px;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #444;
+            font-weight: normal;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f8ff;
+        }
+
+        .checkbox {
+            margin-top: 0.5rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: #fff;
             border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .error {
+            color: red;
+            margin-top: 1rem;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            text-align: center;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <!-- Top Right Buttons -->
-    <div class="top-buttons">
-        <a href="/form/form.html">
-            <i class="bi bi-house-door me-1"></i> Home
-        </a>
-        <a href="#" id="exportExcel">
-            <i class="bi bi-file-earmark-excel me-1"></i> Excel
-        </a>
-        <a href="#">
-            <i class="bi bi-github me-1"></i> GitHub
-        </a>
-    </div>
-
-    <!-- Hidden PDF Upload Input -->
-    <input type="file" id="pdfUpload" accept=".pdf">
-
-    <!-- PDF Viewer Modal -->
-    <div class="modal fade" id="pdfModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">License Document</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <iframe id="pdfViewer"></iframe>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+    <div class="login-left">
+        <div class="login-container">
+            <h2>🔒 Account sign in</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="you@example.com">
             </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <div class="form-group checkbox">
+                <label><input type="checkbox" id="keep-signed-in"> Keep me signed in</label>
+            </div>
+            <button onclick="login()">Sign in</button>
+            <a href="#" class="forgot-password">Forgot password?</a>
+            <div id="error-message" class="error"></div>
         </div>
     </div>
+    <div class="login-right"></div>
 
-    <!-- Main Content -->
-    <div class="container-fluid mt-4">
-        <div class="row">
-            <div class="col">
-                <h1 class="display-6 mb-4">
-                    <i class="bi bi-clipboard2-data text-success"></i> Software Licenses Dashboard
-                </h1>
-                
-                <div class="table-responsive">
-                    <table class="table table-hover" id="licenseTable">
-                        <thead>
-                            <tr>
-                                <th>Software Name</th>
-                                <th>Provider</th>
-                                <th>Dates</th>
-                                <th>License Type</th>
-                                <th>Price</th>
-                                <th>Admin</th>
-                                <th class="text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="licenseBody" class="align-middle"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Load data from localStorage
-        const licenses = JSON.parse(localStorage.getItem('licenses')) || [];
-        const tbody = document.getElementById('licenseBody');
-        const pdfModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-        let currentLicenseId = null;
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
 
-        // Format date for display
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString(undefined, options);
-        }
-
-        function renderTable() {
-            tbody.innerHTML = licenses.map(license => `
-                <tr>
-                    <td><strong>${license.softwareName || 'N/A'}</strong></td>
-                    <td>${license.provider || 'N/A'}</td>
-                    <td>
-                        <div class="date-text"><span class="date-label">Start:</span> ${formatDate(license.startDate)}</div>
-                        <div class="date-text"><span class="date-label">End:</span> ${formatDate(license.endDate)}</div>
-                    </td>
-                    <td>${license.licenseType || 'N/A'}</td>
-                    <td class="fw-bold">$${license.price || '0.00'}</td>
-                    <td>${license.admin || 'Unassigned'}</td>
-                    <td class="text-center">
-                        <div class="d-flex justify-content-center gap-2">
-                            ${license.pdfUrl ? `
-                            <button class="btn btn-sm btn-outline-info action-btn" 
-                                    onclick="viewPdf(${license.id})" title="View PDF">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            ` : ''}
-                            <button class="btn btn-sm btn-outline-primary action-btn" 
-                                    onclick="uploadPdf(${license.id})" title="Upload PDF">
-                                <i class="bi bi-file-earmark-pdf"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger action-btn" 
-                                    onclick="deleteLicense(${license.id})" title="Delete">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function uploadPdf(licenseId) {
-            currentLicenseId = licenseId;
-            document.getElementById('pdfUpload').click();
-        }
-
-        function viewPdf(licenseId) {
-            const license = licenses.find(l => l.id == licenseId);
-            if (license && license.pdfUrl) {
-                document.getElementById('pdfViewer').src = license.pdfUrl;
-                currentLicenseId = licenseId;
-                pdfModal.show();
+            if (username === 'admin' && password === 'admin123') {
+                window.location.href = '/form/form.html';
+            } else {
+                errorMessage.textContent = 'Invalid username or password';
             }
         }
-
-        function deleteLicense(id) {
-            if (confirm('Are you sure you want to delete this license?')) {
-                const index = licenses.findIndex(license => license.id === id);
-                if (index !== -1) {
-                    licenses.splice(index, 1);
-                    localStorage.setItem('licenses', JSON.stringify(licenses));
-                    renderTable();
-                }
-            }
-        }
-
-        // Handle PDF file selection
-        document.getElementById('pdfUpload').addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                const file = e.target.files[0];
-                const license = licenses.find(l => l.id == currentLicenseId);
-                if (license) {
-                    // Create object URL for preview
-                    license.pdfUrl = URL.createObjectURL(file);
-                    localStorage.setItem('licenses', JSON.stringify(licenses));
-                    renderTable();
-                    viewPdf(currentLicenseId);
-                }
-            }
-        });
-
-        // Export to Excel function
-        document.getElementById('exportExcel').addEventListener('click', function() {
-            const excelData = licenses.map(license => ({
-                'Software Name': license.softwareName || 'N/A',
-                'Provider': license.provider || 'N/A',
-                'Start Date': license.startDate ? formatDate(license.startDate) : 'N/A',
-                'End Date': license.endDate ? formatDate(license.endDate) : 'N/A',
-                'License Type': license.licenseType || 'N/A',
-                'Price': `$${license.price || '0.00'}`,
-                'Admin': license.admin || 'Unassigned',
-                'PDF Available': license.pdfUrl ? 'Yes' : 'No'
-            }));
-            
-            // Create worksheet
-            const ws = XLSX.utils.json_to_sheet(excelData);
-            
-            // Create workbook
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Licenses");
-            
-            // Export to Excel file
-            XLSX.writeFile(wb, "software_licenses.xlsx");
-        });
-
-        // Initial render
-        renderTable();
     </script>
 </body>
 </html>
